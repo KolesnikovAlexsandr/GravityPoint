@@ -32,17 +32,18 @@ class star:
         xLen = self.x - CenterOfMass.getPosition()[0]
         yLen = self.y - CenterOfMass.getPosition()[1]
         hypotenuse = math.sqrt(xLen*xLen + yLen*yLen)
-        if hypotenuse < 30:
+        if hypotenuse < 10:
             self.velosity = 0
             self.acceleration = 0
         else:
             self.acceleration = (Physics.GetGravityConst()*CenterOfMass.getMass())/(hypotenuse * hypotenuse)
-        self.xAngle = xLen/hypotenuse
-        self.yAngle = yLen/hypotenuse
+            self.xAngle = xLen / hypotenuse
+            self.yAngle = yLen / hypotenuse
+
 
 
     def CalculatePosition(self):
-        self.velosity = self.velosity + self.acceleration
+        self.velosity = (self.velosity + self.acceleration)%50
         self.x = self.x - int(self.velosity*self.xAngle)
         self.y = self.y - int(self.velosity * self.yAngle)
 

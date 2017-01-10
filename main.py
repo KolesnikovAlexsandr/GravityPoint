@@ -25,30 +25,37 @@ def main():
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))
     bg.fill(Color(BACKGROUND_COLOR))  # Заливаем поверхность сплошным цветом
     i = 0
-    while i < 5:
-        StarList.append(Star.star(Random.getRandomCoordinat(WIN_WIDTH, WIN_HEIGHT)))
-        i = i+1
 
+    StarList.append(Star.star(Random.getRandomCoordinat(WIN_WIDTH, WIN_HEIGHT)))
+    StarList.append(Star.star(Random.getRandomCoordinat(WIN_WIDTH, WIN_HEIGHT)))
+    StarList.append(Star.star(Random.getRandomCoordinat(WIN_WIDTH, WIN_HEIGHT)))
     CenterOfMass = Star.star([0,0])
+    counter = 0
     while 1:  # Основной цикл программы
         for event in pygame.event.get():  # Обрабатываем события
             if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    StarList.append(Star.star(event.pos))
         i = 0
 
         screen.blit(bg, (0, 0))
         i = 0
+
+
         CenterOfMass.setPosition(Physics.getCenterOfMassPosition(StarList))
         CenterOfMass.setMass(Physics.getAllMass(StarList))
         while i < len(StarList):
             StarList[i].CalculateAcceleration(CenterOfMass)
             StarList[i].CalculatePosition()
-            pygame.draw.circle(screen, white, StarList[i].getPosition(), 10)
-            i = i +1
+            pygame.draw.circle(screen, white, StarList[i].getPosition(), 3)
+            i = i + 1
           # Каждую итерацию необходимо всё перерисовывать
         pygame.draw.circle(screen, yellow, CenterOfMass.getPosition(), 10)
         pygame.display.update()
-        pygame.time.delay(150)# обновление и вывод всех изменений на экран
+        pygame.time.delay(10)# обновление и вывод всех изменений на экран
+
 
 
 if __name__ == "__main__":

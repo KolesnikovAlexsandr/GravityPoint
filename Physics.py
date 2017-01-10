@@ -23,4 +23,4 @@ def getAllMass(StarMass):
 
 
 def GetGravityConst():
-    return 100
+    return 1
