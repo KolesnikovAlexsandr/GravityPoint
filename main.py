@@ -14,7 +14,9 @@ DISPLAY = ( WIN_WIDTH , WIN_HEIGHT )
 BACKGROUND_COLOR = "#000000"
 white = [255, 255, 255]
 yellow = [255, 255, 0]
-StarMass = list()
+StarList = list()
+
+
 def main():
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
@@ -22,19 +24,26 @@ def main():
 
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))
     bg.fill(Color(BACKGROUND_COLOR))  # Заливаем поверхность сплошным цветом
-
+    i = 0
+    while i < 5:
+        StarList.append(Star.star(Random.getRandomCoordinat(WIN_WIDTH, WIN_HEIGHT)))
+        i = i+1
 
     CenterOfMass = Star.star([0,0])
     while 1:  # Основной цикл программы
         for event in pygame.event.get():  # Обрабатываем события
             if event.type == pygame.QUIT:
                 sys.exit()
-        StarMass.append(Star.star(Random.getRandomCoordinat(WIN_WIDTH,WIN_HEIGHT)))
+        i = 0
+
         screen.blit(bg, (0, 0))
         i = 0
-        CenterOfMass.setPosition(Physics.getCenterOfMassPosition(StarMass))
-        while i < len(StarMass):
-            pygame.draw.circle( screen , white , StarMass[i].getPosition()  , 10 )
+        CenterOfMass.setPosition(Physics.getCenterOfMassPosition(StarList))
+        CenterOfMass.setMass(Physics.getAllMass(StarList))
+        while i < len(StarList):
+            StarList[i].CalculateAcceleration(CenterOfMass)
+            StarList[i].CalculatePosition()
+            pygame.draw.circle(screen, white, StarList[i].getPosition(), 10)
             i = i +1
           # Каждую итерацию необходимо всё перерисовывать
         pygame.draw.circle(screen, yellow, CenterOfMass.getPosition(), 10)

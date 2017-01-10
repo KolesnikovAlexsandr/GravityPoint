@@ -11,3 +11,16 @@ def getCenterOfMassPosition(StarMass):
     xPosition = xPosition/AllMass
     yPosition = yPosition/AllMass
     return xPosition , yPosition
+
+
+def getAllMass(StarMass):
+    AllMass = 0
+    i = 0
+    while i < len(StarMass):
+        AllMass = AllMass + StarMass[i].getMass()
+        i = i +1
+    return AllMass
+
+
+def GetGravityConst():
+    return 100
