@@ -1,3 +1,4 @@
+
 def getCenterOfMassPosition(StarMass):
     xPosition = 0
     yPosition = 0
@@ -23,4 +24,4 @@ def getAllMass(StarMass):
 
 
 def GetGravityConst():
-    return 1
+    return 5
